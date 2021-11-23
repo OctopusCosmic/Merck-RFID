@@ -1,13 +1,20 @@
 import pandas as pd
+import hashlib
 pd.set_option('display.max_columns', None)
 def generate_hash_key(row, features_selected):
     # initialize hash_key as empty string
     hash_key = ""
     # concatenate values from given features to generate hash_key
     for feature in features_selected:
-        hash_key += str(row[feature]) + " "
+        hash_key += str(row[feature]) + ""
+    hash_key = hashlib.sha256(hash_key.encode()).hexdigest()
     # return hash_key
     return hash_key
+
+def check_hash(hash_key, features_selected):
+    check = (hash_key == hashlib.sha256(hash_key.encode()).hexdigest())
+    return check
+
 def append_hash_key(data: pd.DataFrame, features_selected: list):
     # generate hash_key by information from rows
 
