@@ -9,7 +9,3 @@ def append_hash_key(data: pd.DataFrame, features_selected: list):
     # generate hash_key by information from rows
     data["hash_key"] = data.apply(generate_hash_key, axis=1)
 
-
-def func(row):
-    row['result'] = row['A'] + row['B'] + row['C']
-    return row
