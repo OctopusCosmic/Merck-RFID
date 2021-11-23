@@ -8,11 +8,15 @@ def generate_hash_key(row, features_selected):
     for feature in features_selected:
         hash_key += str(row[feature]) + ""
     hash_key = hashlib.sha256(hash_key.encode()).hexdigest()
+    print(check_hash(row, hash_key, features_selected))
     # return hash_key
     return hash_key
 
-def check_hash(hash_key, features_selected):
-    check = (hash_key == hashlib.sha256(hash_key.encode()).hexdigest())
+def check_hash(row, hash_key, features_selected):
+    tmp = ""
+    for feature in features_selected:
+        tmp += str(row[feature]) + ""
+    check = (hash_key == hashlib.sha256(tmp.encode()).hexdigest())
     return check
 
 def append_hash_key(data: pd.DataFrame, features_selected: list):
